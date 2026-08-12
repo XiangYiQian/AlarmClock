@@ -64,7 +64,7 @@ object AlarmScheduler {
      * 取消闹钟
      */
     fun cancelAlarm(context: Context, alarmId: Long) {
-        val alarmManager = context.getSystemService(Context.ALARM_MANAGER) as AlarmManager
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, AlarmReceiver::class.java).apply {
             action = "com.homi.alarmclock.ALARM_FIRED"
         }
