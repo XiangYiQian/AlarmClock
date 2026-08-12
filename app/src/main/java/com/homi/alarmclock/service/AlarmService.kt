@@ -150,7 +150,6 @@ class AlarmService : LifecycleService() {
     }
 
     override fun onBind(intent: Intent): IBinder? {
-        super.onBind(intent)
         return null
     }
 

@@ -11,6 +11,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.homi.alarmclock.AlarmClockApp
 import com.homi.alarmclock.R
 import com.homi.alarmclock.databinding.ActivityAddEditAlarmBinding
@@ -25,6 +26,8 @@ class AddEditAlarmActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_ALARM = "extra_alarm"
         private const val TAG = "AddEditAlarm"
+        private const val REQUEST_FILE_PICK = 1001
+        private const val REQUEST_MUSIC_SEARCH = 1002
     }
 
     private lateinit var binding: ActivityAddEditAlarmBinding
@@ -48,16 +51,10 @@ class AddEditAlarmActivity : AppCompatActivity() {
     private var hour: Int = 7
     private var minute: Int = 0
 
-    private lateinit var permissionLauncher: ActivityResultContracts.RequestMultiplePermissions
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddEditAlarmBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { _ ->
-            // 权限回调
-        }
 
         // 接收编辑数据
         editingAlarm = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -292,8 +289,5 @@ class AddEditAlarmActivity : AppCompatActivity() {
         }
     }
 
-    companion object {
-        private const val REQUEST_FILE_PICK = 1001
-        private const val REQUEST_MUSIC_SEARCH = 1002
-    }
+
 }
