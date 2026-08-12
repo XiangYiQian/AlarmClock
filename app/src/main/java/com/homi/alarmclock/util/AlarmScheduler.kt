@@ -127,8 +127,8 @@ object AlarmScheduler {
 
         if (alarm.isOneShot) {
             // 一次性闹钟: 如果时间已过, 设为明天
-            if (timeInMillis <= System.currentTimeMillis()) {
-                add(Calendar.DAY_OF_YEAR, 1)
+            if (calendar.timeInMillis <= System.currentTimeMillis()) {
+                calendar.add(Calendar.DAY_OF_YEAR, 1)
             }
         } else {
             // 重复闹钟: 找到下一个匹配的星期

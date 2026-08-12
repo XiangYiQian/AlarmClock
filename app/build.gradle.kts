@@ -74,5 +74,5 @@ dependencies {
     implementation("androidx.work:work-runtime-ktx:2.9.0")
 
     // Permission
-    implementation("com.guolindev.permissionx:permissionx:1.7.1")
+    // (using system permission dialog directly)
 }

@@ -4,28 +4,23 @@ import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
-import android.content.Context
+import android.app.Service
 import android.content.Intent
 import android.os.Build
 import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
-import androidx.lifecycle.LifecycleService
 import com.homi.alarmclock.R
 import com.homi.alarmclock.data.AlarmDatabase
 import com.homi.alarmclock.model.Alarm
 import com.homi.alarmclock.receiver.NotificationActionReceiver
 import com.homi.alarmclock.ui.AlarmFiringActivity
-import com.homi.alarmclock.util.AlarmScheduler
 import com.homi.alarmclock.util.RingtonePlayer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-/**
- * 闹钟前台服务 — 播放铃音 + 显示通知
- */
-class AlarmService : LifecycleService() {
+class AlarmService : Service() {
 
     companion object {
         private const val TAG = "AlarmService"
@@ -46,8 +41,6 @@ class AlarmService : LifecycleService() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        super.onStartCommand(intent, flags, startId)
-
         intent?.let {
             alarmId = it.getLongExtra(EXTRA_ALARM_ID, -1)
             label = it.getStringExtra(EXTRA_ALARM_LABEL) ?: "闹钟"
@@ -56,11 +49,9 @@ class AlarmService : LifecycleService() {
 
         Log.i(TAG, "Service 启动: alarmId=$alarmId, label=$label, snooze=$snoozeCount")
 
-        // 显示通知
         val notification = buildNotification()
         startForeground(NOTIFICATION_ID, notification)
 
-        // 获取闹钟信息并播放铃音
         if (alarmId > 0) {
             CoroutineScope(Dispatchers.IO).launch {
                 try {
@@ -68,16 +59,11 @@ class AlarmService : LifecycleService() {
                     if (alarm != null) {
                         RingtonePlayer.start(this@AlarmService, alarm)
                     } else {
-                        // 找不到闹钟, 播默认铃音
-                        RingtonePlayer.start(this@AlarmService, Alarm(
-                            hour = 0, minute = 0
-                        ))
+                        RingtonePlayer.start(this@AlarmService, Alarm(hour = 0, minute = 0))
                     }
                 } catch (e: Exception) {
                     Log.e(TAG, "获取闹钟信息失败", e)
-                    RingtonePlayer.start(this@AlarmService, Alarm(
-                        hour = 0, minute = 0
-                    ))
+                    RingtonePlayer.start(this@AlarmService, Alarm(hour = 0, minute = 0))
                 }
             }
         }
@@ -86,7 +72,6 @@ class AlarmService : LifecycleService() {
     }
 
     private fun buildNotification(): Notification {
-        // 启动全屏闹钟界面
         val fullScreenIntent = Intent(this, AlarmFiringActivity::class.java).apply {
             putExtra(EXTRA_ALARM_ID, alarmId)
             putExtra(EXTRA_ALARM_LABEL, label)
@@ -98,7 +83,6 @@ class AlarmService : LifecycleService() {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
-        // 贪睡操作
         val snoozeIntent = Intent(this, NotificationActionReceiver::class.java).apply {
             action = NotificationActionReceiver.ACTION_SNOOZE
             putExtra(NotificationActionReceiver.EXTRA_ALARM_ID, alarmId)
@@ -108,7 +92,6 @@ class AlarmService : LifecycleService() {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
-        // 关闭操作
         val dismissIntent = Intent(this, NotificationActionReceiver::class.java).apply {
             action = NotificationActionReceiver.ACTION_DISMISS
             putExtra(NotificationActionReceiver.EXTRA_ALARM_ID, alarmId)
@@ -149,7 +132,7 @@ class AlarmService : LifecycleService() {
         }
     }
 
-    override fun onBind(intent: Intent): IBinder? {
+    override fun onBind(intent: Intent?): IBinder? {
         return null
     }
 
