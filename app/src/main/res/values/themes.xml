@@ -1,0 +1,37 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- 闹钟主主题 -->
+    <style name="Theme.AlarmClock" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/alarm_primary</item>
+        <item name="colorPrimaryVariant">@color/alarm_primary_dark</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorSecondary">@color/alarm_primary</item>
+        <item name="colorOnSecondary">#FFFFFF</item>
+        <item name="android:colorBackground">@color/alarm_background</item>
+        <item name="colorSurface">@color/alarm_surface</item>
+        <item name="colorOnSurface">@color/alarm_on_surface</item>
+        <item name="colorOnSurfaceVariant">@color/alarm_on_surface_variant</item>
+        <item name="android:statusBarColor">@color/alarm_background</item>
+        <item name="android:navigationBarColor">@color/alarm_background</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <!-- 全屏闹钟主题 -->
+    <style name="Theme.AlarmClock.FullScreen" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:navigationBarColor">@color/alarm_fullscreen_bg</item>
+        <item name="android:statusBarColor">@color/alarm_fullscreen_bg</item>
+    </style>
+
+    <!-- 圆形图片 -->
+    <style name="circleImageView">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.circle</item>
+    </style>
+
+    <style name="ShapeAppearance.circle" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+</resources>

@@ -1,0 +1,4 @@
+<resources>
+    <color name="alarm_background_night">#121212</color>
+    <color name="alarm_surface_night">#1E1E1E</color>
+</resources>

@@ -1,0 +1,12 @@
+# Build artifacts
+/build/
+/app/build/
+/.gradle/
+/local.properties
+
+# IDE
+.idea/
+*.iml
+.DS_Store
+
+# Gradle (keep wrapper jar for CI)

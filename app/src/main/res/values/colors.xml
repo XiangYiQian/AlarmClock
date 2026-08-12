@@ -1,0 +1,21 @@
+<resources>
+    <!-- 主色 — 参考小米闹钟橙红色 -->
+    <color name="alarm_primary">#FF6B35</color>
+    <color name="alarm_primary_dark">#E55A2B</color>
+    <color name="alarm_primary_light">#FFE0D6</color>
+
+    <!-- 背景色 -->
+    <color name="alarm_background">#FAFAFA</color>
+    <color name="alarm_surface">#FFFFFF</color>
+
+    <!-- 文字 -->
+    <color name="alarm_on_surface">#1A1A1A</color>
+    <color name="alarm_on_surface_variant">#666666</color>
+
+    <!-- 全屏闹钟背景 -->
+    <color name="alarm_fullscreen_bg">#000000</color>
+
+    <!-- VIP 标签 -->
+    <color name="vip_bg">#FFF5E0</color>
+    <color name="vip_text">#B8860B</color>
+</resources>

@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">闹钟</string>
+    <string name="alarm_channel_name">闹钟提醒</string>
+    <string name="alarm_channel_desc">闹钟铃响通知</string>
+</resources>
