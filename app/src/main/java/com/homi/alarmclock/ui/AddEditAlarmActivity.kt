@@ -125,7 +125,8 @@ class AddEditAlarmActivity : AppCompatActivity() {
     }
 
     private fun loadAlarmData() {
-        editingAlarm?.let { alarm ->
+        val alarm = editingAlarm
+        if (alarm != null) {
             hour = alarm.hour
             minute = alarm.minute
             selectedDays = alarm.daysOfWeek
